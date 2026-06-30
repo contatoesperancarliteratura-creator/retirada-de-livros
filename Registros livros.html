@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Biblioteca Esperançar pela Literatura! - IECE-RS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a5276 0%, #2e86c1 50%, #1abc9c 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Elementos lúdicos decorativos */
+        body::before {
+            content: '📚⭐🌈📖✨🎨';
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            opacity: 0.2;
+            pointer-events: none;
+            transform: rotate(-15deg);
+        }
+
+        body::after {
+            content: '🎈📚✨🌟📖🎉';
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 30px;
+            opacity: 0.2;
+            pointer-events: none;
+            transform: rotate(15deg);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 1;
+            border: 4px solid #f1c40f;
+        }
+
+        /* Header com cores IECE-RS */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #1a5276 0%, #2e86c1 50%, #1abc9c 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '🎈🎉📚✨';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 50px;
+            opacity: 0.3;
+            transform: rotate(20deg);
+        }
+
+        .header::after {
+            content: '🌈⭐📖🎨';
+            position: absolute;
+            bottom: -10px;
+            left: -10px;
+            font-size: 40px;
+            opacity: 0.3;
+            transform: rotate(-15deg);
+        }
+
+        .header h1 {
+            font-size: 2.4em;
+            color: #f1c40f;
+            text-shadow: 
+                2px 2px 0 #e74c3c,
+                4px 4px 0 #2e86c1,
+                6px 6px 0 #1abc9c;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+        }
+
+        .header .subtitle {
+            color: white;
+            font-style: italic;
+            font-size: 1.2em;
+            position: relative;
+            z-index: 1;
+            background: rgba(231, 76, 60, 0.3);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .header .subtitle span {
+            display: inline-block;
+            animation: pular 2s infinite;
+        }
+
+        @keyframes pular {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Menu com cores IECE-RS */
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .menu button {
+            padding: 18px 20px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .menu button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s;
+        }
+
+        .menu button:hover::before {
+            transform: scale(1);
+        }
+
+        .menu button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-verde { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .btn-azul { background: linear-gradient(135deg, #2471a3, #3498db); }
+        .btn-vermelho { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+        .btn-amarelo { background: linear-gradient(135deg, #d4ac0d, #f1c40f); }
+
+        .btn-verde:hover { background: linear-gradient(135deg, #1e8449, #27ae60); }
+        .btn-azul:hover { background: linear-gradient(135deg, #1a5276, #2471a3); }
+        .btn-vermelho:hover { background: linear-gradient(135deg, #922b21, #c0392b); }
+        .btn-amarelo:hover { background: linear-gradient(135deg, #b7950b, #d4ac0d); }
+
+        /* Stats com cores IECE-RS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-card .number {
+            font-size: 2.2em;
+            font-weight: bold;
+        }
+
+        .stat-card .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .stat-card:nth-child(1) { background: linear-gradient(135deg, #1a5276, #2e86c1); }
+        .stat-card:nth-child(2) { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+        .stat-card:nth-child(3) { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+
+        .stat-card::after {
+            content: '🌈✨';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 30px;
+            opacity: 0.2;
+        }
+
+        /* Formulário */
+        .form-section {
+            background: linear-gradient(135deg, #f0f8ff, #e8f0fe);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            display: none;
+            border: 3px solid #f1c40f;
+            position: relative;
+        }
+
+        .form-section::before {
+            content: '📝✏️📚';
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            font-size: 30px;
+            background: white;
+            padding: 0 10px;
+            border-radius: 10px;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .form-section h2 {
+            color: #1a5276;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #1a5276;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2ecc71;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.3);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .form-actions button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .btn-save:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-cancel {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+        }
+
+        .btn-cancel:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Lista */
+        .list-section {
+            display: none;
+        }
+
+        .list-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .list-header h2 {
+            color: #1a5276;
+            font-size: 1.6em;
+        }
+
+        .list-item {
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 5px solid #3498db;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .list-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .list-item:nth-child(odd) {
+            border-left-color: #e74c3c;
+        }
+
+        .list-item:nth-child(3n) {
+            border-left-color: #f1c40f;
+        }
+
+        .list-item:nth-child(4n) {
+            border-left-color: #2ecc71;
+        }
+
+        .list-item .info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .list-item .info strong {
+            color: #1a5276;
+        }
+
+        .list-item .status {
+            font-weight: bold;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-size: 0.9em;
+        }
+
+        .status.prazo {
+            background: #d5f5e3;
+            color: #1a7a3a;
+            border: 2px solid #2ecc71;
+        }
+
+        .status.atrasado {
+            background: #fadbd8;
+            color: #922b21;
+            border: 2px solid #e74c3c;
+        }
+
+        .list-item .actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-edit:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            transform: scale(1.1);
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 50px;
+            font-size: 1.2em;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 3px dashed #bdc3c7;
+        }
+
+        .empty-message::before {
+            content: '📭 ';
+            font-size: 2em;
+        }
+
+        .btn-planilha {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .btn-planilha:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 5px 25px rgba(26, 188, 156, 0.4);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 18px 30px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            display: none;
+            animation: slideIn 0.4s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 400px;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%) rotate(-5deg); opacity: 0; }
+            to { transform: translateX(0) rotate(0); opacity: 1; }
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #2471a3, #3498db);
+        }
+
+        /* Elementos lúdicos flutuantes */
+        .floating-icons {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            font-size: 40px;
+            opacity: 0.15;
+        }
+
+        /* Responsivo */
+        @media (max-width: 600px) {
+            .container { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+            .menu { grid-template-columns: 1fr; }
+            .list-item { flex-direction: column; align-items: flex-start; }
+            .list-item .status { margin-top: 10px; align-self: flex-start; }
+            .form-actions { flex-direction: column; }
+            .form-actions button { width: 100%; }
+            .toast { bottom: 10px; right: 10px; left: 10px; max-width: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Elementos lúdicos flutuantes -->
+    <div class="floating-icons" style="top: 15%; left: 5%;">🌈</div>
+    <div class="floating-icons" style="bottom: 20%; right: 3%;">🎈</div>
+    <div class="floating-icons" style="top: 50%; left: 2%;">📖</div>
+    <div class="floating-icons" style="top: 30%; right: 2%;">✨</div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📚 Biblioteca Esperançar pela Literatura!</h1>
+            <div class="subtitle">
+                <span>✨</span> "Onde as histórias ganham vida e os sonhos se renovam!" <span>✨</span>
+            </div>
+            <div style="margin-top: 10px; font-size: 20px; color: white; opacity: 0.7; letter-spacing: 5px;">
+                🎈 IECE-RS 🎉
+            </div>
+        </div>
+
+        <!-- Menu com cores IECE-RS -->
+        <div class="menu">
+            <button class="btn-verde" onclick="mostrarFormulario()">📖 Novo Empréstimo</button>
+            <button class="btn-azul" onclick="mostrarLista()">📋 Ver Empréstimos</button>
+            <button class="btn-amarelo" onclick="gerarCSV()">📊 Baixar Planilha</button>
+            <button class="btn-vermelho" onclick="limparDados()">🗑️ Limpar Dados</button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <div class="number" id="totalEmprestimos">0</div>
+                <div class="label">📚 Total de Empréstimos</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="totalAtrasados">0</div>
+                <div class="label">⚠️ Atrasados</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="totalNoPrazo">0</div>
+                <div class="label">✅ No Prazo</div>
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section" id="formSection">
+            <h2>📖 Registrar Novo Empréstimo</h2>
+            <div class="form-group">
+                <label>📝 Nome do Cliente</label>
+                <input type="text" id="nome" placeholder="Digite o nome completo">
+            </div>
+            <div class="form-group">
+                <label>📞 Telefone</label>
+                <input type="text" id="telefone" placeholder="(00) 00000-0000">
+            </div>
+            <div class="form-group">
+                <label>🏠 Endereço</label>
+                <input type="text" id="endereco" placeholder="Rua, número, bairro, cidade">
+            </div>
+            <div class="form-group">
+                <label>📚 Nome do Livro</label>
+                <input type="text" id="livro" placeholder="Título do livro">
+            </div>
+            <div class="form-actions">
+                <button class="btn-save" onclick="salvarEmprestimo()">✅ Salvar Empréstimo</button>
+                <button class="btn-cancel" onclick="fecharFormulario()">❌ Cancelar</button>
+            </div>
+        </div>
+
+        <!-- List Section -->
+        <div class="list-section" id="listSection">
+            <div class="list-header">
+                <h2>📋 Lista de Empréstimos</h2>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <span style="color: #7f8c8d; display: flex; align-items: center;" id="contadorLista">0 registros</span>
+                    <button class="btn-planilha" onclick="gerarCSV()">📊 Baixar Planilha</button>
+                </div>
+            </div>
+            <div id="listaEmprestimos">
+                <div class="empty-message">Nenhum empréstimo registrado ainda</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let emprestimos = [];
+        let editandoIndex = -1;
+
+        function carregarDados() {
+            const saved = localStorage.getItem('emprestimos');
+            if (saved) {
+                emprestimos = JSON.parse(saved);
+                atualizarStats();
+                atualizarLista();
+            }
+        }
+
+        function salvarDados() {
+            localStorage.setItem('emprestimos', JSON.stringify(emprestimos));
+            atualizarStats();
+            atualizarLista();
+        }
+
+        function mostrarToast(mensagem, tipo = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = mensagem;
+            toast.className = `toast ${tipo}`;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3500);
+        }
+
+        function mostrarFormulario() {
+            document.getElementById('formSection').classList.add('active');
+            document.getElementById('listSection').classList.remove('active');
+            document.getElementById('nome').focus();
+        }
+
+        function fecharFormulario() {
+            document.getElementById('formSection').classList.remove('active');
+            document.getElementById('listSection').classList.add('active');
+            limparCampos();
+        }
+
+        function limparCampos() {
+            document.getElementById('nome').value = '';
+            document.getElementById('telefone').value = '';
+            document.getElementById('endereco').value = '';
+            document.getElementById('livro').value = '';
+            editandoIndex = -1;
+        }
+
+        function salvarEmprestimo() {
+            const nome = document.getElementById('nome').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
+            const endereco = document.getElementById('endereco').value.trim();
+            const livro = document.getElementById('livro').value.trim();
+
+            if (!nome || !telefone || !endereco || !livro) {
+                mostrarToast('❌ Preencha todos os campos!', 'error');
+                return;
+            }
+
+            const now = new Date();
+            const dataDevolucao = new Date(now);
+            dataDevolucao.setDate(dataDevolucao.getDate() + 15);
+
+            const emprestimo = {
+                nome,
+                telefone,
+                endereco,
+                livro,
+                dataRetirada: now.toLocaleString('pt-BR'),
+                dataDevolucao: dataDevolucao.toLocaleDateString('pt-BR'),
+                timestamp: now.getTime()
+            };
+
+            if (editandoIndex >= 0) {
+                emprestimos[editandoIndex] = emprestimo;
+                mostrarToast('✅ Empréstimo atualizado com sucesso! 🎉', 'success');
+                editandoIndex = -1;
+            } else {
+                emprestimos.push(emprestimo);
+                mostrarToast('✅ Empréstimo registrado com sucesso! 📚✨', 'success');
+            }
+
+            salvarDados();
+            limparCampos();
+            fecharFormulario();
+            mostrarLista();
+        }
+
+        function mostrarLista() {
+            document.getElementById('listSection').classList.add('active');
+            document.getElementById('formSection').classList.remove('active');
+            atualizarLista();
+        }
+
+        function atualizarLista() {
+            const container = document.getElementById('listaEmprestimos');
+            const contador = document.getElementById('contadorLista');
+
+            if (emprestimos.length === 0) {
+                container.innerHTML = '<div class="empty-message">Nenhum empréstimo registrado ainda</div>';
+                contador.textContent = '0 registros';
+                return;
+            }
+
+            contador.textContent = `${emprestimos.length} registros`;
+
+            let html = '';
+            emprestimos.forEach((emp, index) => {
+                const now = new Date();
+                const dataDev = new Date(emp.timestamp);
+                dataDev.setDate(dataDev.getDate() + 15);
+                const atrasado = now > dataDev;
+
+                html += `
+                    <div class="list-item">
+                        <div class="info">
+                            <strong>👤 ${emp.nome}</strong><br>
+                            📞 ${emp.telefone} | 🏠 ${emp.endereco}<br>
+                            📚 <strong>${emp.livro}</strong><br>
+                            📅 Retirada: ${emp.dataRetirada} | Devolução: ${emp.dataDevolucao}
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+                            <span class="status ${atrasado ? 'atrasado' : 'prazo'}">
+                                ${atrasado ? '⚠️ ATRASADO' : '✅ No prazo'}
+                            </span>
+                            <div class="actions">
+                                <button class="btn-edit" onclick="editarEmprestimo(${index})">✏️ Editar</button>
+                                <button class="btn-delete" onclick="excluirEmprestimo(${index})">🗑️ Excluir</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function editarEmprestimo(index) {
+            const emp = emprestimos[index];
+            document.getElementById('nome').value = emp.nome;
+            document.getElementById('telefone').value = emp.telefone;
+            document.getElementById('endereco').value = emp.endereco;
+            document.getElementById('livro').value = emp.livro;
+            editandoIndex = index;
+            mostrarFormulario();
+            document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function excluirEmprestimo(index) {
+            if (confirm('⚠️ Tem certeza que deseja excluir este empréstimo?')) {
+                emprestimos.splice(index, 1);
+                salvarDados();
+                mostrarToast('🗑️ Empréstimo excluído!', 'info');
+            }
+        }
+
+        function atualizarStats() {
+            document.getElementById('totalEmprestimos').textContent = emprestimos.length;
+            
+            const now = new Date();
+            let atrasados = 0;
+            emprestimos.forEach(emp => {
+                const dataDev = new Date(emp.timestamp);
+                dataDev.setDate(dataDev.getDate() + 15);
+                if (now > dataDev) atrasados++;
+            });
+            
+            document.getElementById('totalAtrasados').textContent = atrasados;
+            document.getElementById('totalNoPrazo').textContent = emprestimos.length - atrasados;
+        }
+
+        function gerarCSV() {
+            if (emprestimos.length === 0) {
+                mostrarToast('📭 Nenhum empréstimo para exportar!', 'error');
+                return;
+            }
+
+            let csv = 'Nome,Telefone,Endereço,Livro,Data Retirada,Data Devolução,Status\n';
+            
+            const now = new Date();
+            emprestimos.forEach(emp => {
+                const dataDev = new Date(emp.timestamp);
+                dataDev.setDate(dataDev.getDate() + 15);
+                const atrasado = now > dataDev;
+                const status = atrasado ? 'ATRASADO' : 'NO PRAZO';
+                
+                csv += `"${emp.nome}","${emp.telefone}","${emp.endereco}","${emp.livro}","${emp.dataRetirada}","${emp.dataDevolucao}","${status}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `Emprestimos_IECE_RS_${new Date().toISOString().slice(0,10)}.csv`;
+            link.click();
+            
+            mostrarToast('📊 Planilha baixada com sucesso! 🎉', 'success');
+        }
+
+        function limparDados() {
+            if (confirm('⚠️ Tem certeza que deseja apagar TODOS os dados?\n\nEsta ação não pode ser desfeita!')) {
+                emprestimos = [];
+                salvarDados();
+                mostrarToast('🗑️ Todos os dados foram apagados!', 'info');
+            }
+        }
+
+        carregarDados();
+        mostrarLista();
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && document.getElementById('formSection').classList.contains('active')) {
+                salvarEmprestimo();
+            }
+        });
+    </script>
+</body>
+</html>
